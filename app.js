@@ -50,43 +50,43 @@ async function insert_5() {
 }
 /*
 
-async function get_all_employees() {
+async function get_all_students() {
     // add try catch
-    const employees = await data_base.raw("select * from company")
-    employees.rows = employees.rows.map(e => {
+    const students = await data_base.raw("select * from students")
+    students.rows = students.rows.map(e => {
         e.address = e.address.trimEnd();
         return e;
     })
 
     return {
         status: "success",
-        data: employees.rows
+        data: students.rows
     }
 }
 
-async function get_employee_by_id(id) {
-    const employees = await data_base.raw(`select * from company where id = ${id}`)
-    employees.rows = employees.rows.map(e => {
+async function get_student_by_id(id) {
+    const students = await data_base.raw(`select * from student where id = ${id}`)
+    students.rows = students.rows.map(e => {
         e.address = e.address.trimEnd();
         return e;
     })
     return {
         status: "success",
-        data: employees.rows[0]
+        data: students.rows[0]
     }    
 }
 
-async function insert_employee(new_employee) {
+async function insert_student(new_student) {
     try {
-        delete new_employee.id
-        console.log(new_employee);
-        const result_ids = await data_base('company').insert(new_employee).returning('id');
+        delete new_student.id
+        console.log(new_student);
+        const result_ids = await data_base('company').insert(new_student).returning('id');
         console.log(result_ids[0]);
 
         const id = result_ids[0].id // the new id
         return { status: "success", 
-                 data: { id, ...new_employee }  }
-        // url: `/api/employees/${id}`
+                 data: { id, ...new_student }  }
+        // url: `/api/students/${id}`
     }
     catch (e) {
         return {
@@ -97,23 +97,23 @@ async function insert_employee(new_employee) {
     }
 }
 
-async function update_employee(id, updated_employee) {
+async function update_student(id, updated_student) {
     // add try-catch
     // can fail due to duplication
     const result = await data_base.raw(`UPDATE company set name=?,age=?,address=?,salary=? where id=?`,
-        [updated_employee.name, updated_employee.age, updated_employee.address ? updated_employee.address : '', updated_employee.salary, id])
+        [updated_student.name, updated_student.age, updated_student.address ? updated_student.address : '', updated_student.salary, id])
     return {
         status: "success",
         data: result.rowCount
     }    
 }
 
-async function patch_employee(id, updated_employee) {
+async function patch_student(id, updated_student) {
     // add try-catch to figure out if there was
     // a unique constrain error, if so the user should get error-400
     const query_arr = []
-    for (let key in updated_employee) {
-        query_arr.push(`${key}='${updated_employee[key]}'`)
+    for (let key in updated_student) {
+        query_arr.push(`${key}='${updated_student[key]}'`)
     }
 
     if (query_arr.length > 0) {
@@ -131,7 +131,7 @@ async function patch_employee(id, updated_employee) {
     }          
 }
 
-async function delete_employee(id) {
+async function delete_student(id) {
     const result = await data_base.raw(`DELETE from company where id=${id}`)
     console.log(result);
     return {
