@@ -148,10 +148,8 @@ async function delete_table() {
         status: "success"
     }      
 }
-
-
-
 */
+
 create_table()
-insert_5()
+//insert_5()
 
