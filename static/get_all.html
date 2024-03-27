@@ -71,8 +71,8 @@ async function fetchStudents() {
 }
 
 // Call fetchStudents when the page loads
-window.onload = function() {
-  fetchStudents();
+window.onload = async function() {
+  await fetchStudents();
 };
 </script>
 
