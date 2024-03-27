@@ -18,7 +18,7 @@ router.get('', async(request, response) => {
 // example: /api/students/3
 router.get('/:id', async (request, response) => {
     const id = request.params.id
-    const result = await company_dal.get_employee_by_id(id)
+    const result = await students_dal.get_student_by_id(id)
     response.status(200).json(result.data ? result.data : {})
 })
 
